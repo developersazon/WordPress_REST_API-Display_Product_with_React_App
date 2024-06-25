@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import sanitizeHtml from 'sanitize-html';
-import { MDBContainer, MDBRow,  MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn, MDBBtnGroup} from 'mdb-react-ui-kit';
+import ViewProduct from './viewProduct';
+import { MDBContainer, MDBRow,  MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn, MDBBtnGroup, MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+  MDBInput } from 'mdb-react-ui-kit';
 
 
 const Products = () => {
@@ -45,7 +53,7 @@ const Products = () => {
                                             {product.price} tk
                                           </MDBCardText>
                                           <MDBBtnGroup>
-                                                <a href='#'><MDBBtn>View</MDBBtn></a>
+                                                <ViewProduct/>
                                                 <a href={product.permalink} target="_blank" rel="noopener noreferrer"><MDBBtn color='light'>Add to Cart</MDBBtn></a>
                                           </MDBBtnGroup>
                                         </MDBCardBody>
