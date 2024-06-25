@@ -1,16 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import sanitizeHtml from 'sanitize-html';
 import ViewProduct from './viewProduct';
-import { MDBContainer, MDBRow,  MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn, MDBBtnGroup, MDBModal,
-  MDBModalDialog,
-  MDBModalContent,
-  MDBModalHeader,
-  MDBModalTitle,
-  MDBModalBody,
-  MDBModalFooter,
-  MDBInput } from 'mdb-react-ui-kit';
-
+import {
+  MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle,
+  MDBCardText, MDBBtn, MDBBtnGroup
+} from 'mdb-react-ui-kit';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -39,30 +34,30 @@ const Products = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <h1 className='my-5'>Our Product List</h1>
-            <MDBContainer>
-                        <MDBRow>    
-                              {products.map(product => (
-                              <MDBCol className='col-md-3'>
-                                      <MDBCard>
-                                        <MDBCardImage src={product.images[0]?.src} position='top' alt='{product.name}' />
-                                        <MDBCardBody className='p-3'>
-                                          <MDBCardTitle className='h6' key={product.id}>{product.name}</MDBCardTitle>
-                                          <MDBCardText>
-                                            {product.price} tk
-                                          </MDBCardText>
-                                          <MDBBtnGroup>
-                                                <ViewProduct/>
-                                                <a href={product.permalink} target="_blank" rel="noopener noreferrer"><MDBBtn color='light'>Add to Cart</MDBBtn></a>
-                                          </MDBBtnGroup>
-                                        </MDBCardBody>
-                                      </MDBCard><br/>
-                              </MDBCol>
-                              ))}
-                        </MDBRow>
-            </MDBContainer>
-    </div>
+      <MDBContainer>
+        <MDBRow>
+          {products.map(product => (
+            <MDBCol className='col-md-3' key={product.id}>
+              <MDBCard>
+                <MDBCardImage src={product.images[0]?.src} position='top' alt={product.name} />
+                <MDBCardBody className='p-3'>
+                  <MDBCardTitle className='h6'>{product.name}</MDBCardTitle>
+                  <MDBCardText>
+                    {product.price} tk
+                  </MDBCardText>
+                  <MDBBtnGroup>
+                    <ViewProduct product={product} />
+                    <a href={product.permalink} target="_blank" rel="noopener noreferrer"><MDBBtn color='light'>Add to Cart</MDBBtn></a>
+                  </MDBBtnGroup>
+                </MDBCardBody>
+              </MDBCard><br />
+            </MDBCol>
+          ))}
+        </MDBRow>
+      </MDBContainer>
+    </>
   );
 };
 
