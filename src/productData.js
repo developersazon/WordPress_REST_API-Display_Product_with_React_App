@@ -41,12 +41,15 @@ const Products = () => {
           {products.map(product => (
             <MDBCol className='col-md-3' key={product.id}>
               <MDBCard>
-                <MDBCardImage src={product.images[0]?.src} position='top' alt={product.name} />
+                <div className='bg-image hover-overlay'>
+                     <MDBCardImage src={product.images[0]?.src} position='top' alt={product.name} />
+                     <a href={ <ViewProduct product={product} />}>
+                        <div className='mask overlay' style={{ backgroundColor: 'rgba(57, 192, 237, 0.2)' }}></div>
+                      </a>
+                </div>
                 <MDBCardBody className='p-3'>
                   <MDBCardTitle className='h6'>{product.name}</MDBCardTitle>
-                  <MDBCardText>
-                    {product.price} tk
-                  </MDBCardText>
+                  <MDBCardText>{product.price} tk</MDBCardText>
                   <MDBBtnGroup>
                     <ViewProduct product={product} />
                     <a href={product.permalink} target="_blank" rel="noopener noreferrer"><MDBBtn color='light'>Add to Cart</MDBBtn></a>
