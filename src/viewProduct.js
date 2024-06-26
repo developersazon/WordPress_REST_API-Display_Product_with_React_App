@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import './App.css';
+
 import {
   MDBBtn,
   MDBModal,
@@ -14,33 +16,29 @@ import {
 } from 'mdb-react-ui-kit';
 
 
-export default function ViewProduct(data) {
-  const [centredModal, setCentredModal] = useState(false);
-  const toggleOpen = () => setCentredModal(!centredModal);
-  console.log(data);
+export default function ViewProduct({data,toggleOpen,currentModal,setCurrentModal}) {
  
   return (
     <>  
       
-      <MDBBtn onClick={toggleOpen}>View</MDBBtn> 
-      <MDBModal tabIndex='-1' open={centredModal} onClose={() => setCentredModal(false)}>
+      <MDBModal tabIndex='-1' open={currentModal} onClose={() => setCurrentModal(false)} className='modal-backdrop'>
         <MDBModalDialog centered size='xl'>
           <MDBModalContent>
             <MDBModalHeader>
-              <MDBModalTitle>{data.product.name}</MDBModalTitle>
-              <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
+              <MDBModalTitle>{data?.name}</MDBModalTitle>
+              <MDBBtn className='btn-close' color='none' onClick={()=>toggleOpen(data)}></MDBBtn>
             </MDBModalHeader>
             <MDBModalBody>
                  <MDBRow>
                      <div className="d-flex">
                           <div className="p-2">
-                               <MDBCardImage src={data.product.images[0]?.src} position='top' alt='...' width={350} height={350}/>
+                               <MDBCardImage src={data?.images?.[0]?.src} position='top' alt='?.?.?.' width={350} height={350}/>
                           </div>
                           <div className="p-2 w-75">
-                               <p className='h5 text-start'>Product Code: {data.product.id}</p>
-                               <p className='h5 text-start'>Price: {data.product.price} tk</p>
-                               <p className='' style={{textAlign:'justify'}}>{data.product.description}</p>
-                               <a href={data.product.permalink} target="_blank" rel="noopener noreferrer"><MDBBtn className='bg-primary'>Buy Now</MDBBtn></a>
+                               <p className='h5 text-start'>Product Code: {data?.id}</p>
+                               <p className='h5 text-start'>Price: {data?.price} tk</p>
+                               <p className='' style={{textAlign:'justify'}}>{data?.description}</p>
+                               <a href={data?.permalink} target="_blank" rel="noopener noreferrer"><MDBBtn className='bg-primary'>Buy Now</MDBBtn></a>
                           </div>
                     </div>
                  </MDBRow>
