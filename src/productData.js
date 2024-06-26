@@ -7,9 +7,16 @@ import {
   MDBCardText, MDBBtn, MDBBtnGroup
 } from 'mdb-react-ui-kit';
 
+
+
 const Products = () => {
   const [products, setProducts] = useState([]);
-
+  const [modalProduct, setModalProduct] = useState({});
+  const [currentModal, setCurrentModal] = useState(false);
+  const toggleOpen = (product) => {
+    setModalProduct(product);
+    setCurrentModal(!currentModal)
+  };
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -35,23 +42,24 @@ const Products = () => {
 
   return (
     <>
-      <h1 className='my-5'>Our Product List</h1>
+      <h1 className='my-5'>Our Latest Product</h1>
       <MDBContainer>
         <MDBRow>
           {products.map(product => (
             <MDBCol className='col-md-3' key={product.id}>
               <MDBCard>
-                <div className='bg-image hover-overlay'>
-                     <MDBCardImage src={product.images[0]?.src} position='top' alt={product.name} />
-                     <a href={ <ViewProduct product={product} />}>
-                        <div className='mask overlay' style={{ backgroundColor: 'rgba(57, 192, 237, 0.2)' }}></div>
-                      </a>
+                <div onClick={() => toggleOpen(product)} className='bg-image hover-overlay'>
+                  <MDBCardImage src={product.images[0]?.src} position='top' alt={product.name} />
+                  <a href='#'>
+                    <div className='mask overlay' style={{ backgroundColor: 'rgba(57, 192, 237, 0.2)' }}></div>
+                  </a>
                 </div>
                 <MDBCardBody className='p-3'>
                   <MDBCardTitle className='h6'>{product.name}</MDBCardTitle>
                   <MDBCardText>{product.price} tk</MDBCardText>
                   <MDBBtnGroup>
-                    <ViewProduct product={product} />
+                    <MDBBtn onClick={() => toggleOpen(product)}>View</MDBBtn>
+                    <ViewProduct data={modalProduct} currentModal={currentModal} setCurrentModal={setCurrentModal} toggleOpen={toggleOpen} />
                     <a href={product.permalink} target="_blank" rel="noopener noreferrer"><MDBBtn color='light'>Add to Cart</MDBBtn></a>
                   </MDBBtnGroup>
                 </MDBCardBody>
